@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Floor/LastFloor.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Floor/Floor.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Elevator/Elevator.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Main.gd" type="Script" id=4]
+[ext_resource path="res://Floor/GroundFloor.tscn" type="PackedScene" id=5]
+
+[node name="Main" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="Building" type="Node2D" parent="."]
+position = Vector2( -16, 0 )
+
+[node name="FirstFloor" parent="Building" instance=ExtResource( 5 )]
+position = Vector2( 0, 876 )
+
+[node name="SecondFloor" parent="Building" instance=ExtResource( 2 )]
+position = Vector2( 0, 652 )
+id = 1
+
+[node name="ThirdFloor" parent="Building" instance=ExtResource( 2 )]
+position = Vector2( 0, 428 )
+id = 2
+
+[node name="FourthFloor" parent="Building" instance=ExtResource( 2 )]
+position = Vector2( 0, 204 )
+id = 3
+
+[node name="FifthFloor" parent="Building" instance=ExtResource( 1 )]
+position = Vector2( 0, -20 )
+id = 4
+
+[node name="Elevator" parent="." instance=ExtResource( 3 )]
+modulate = Color( 1, 1, 1, 0.85098 )
+position = Vector2( 80, 988 )
+max_speed = 150.0
+max_force = 3.0
+
+[node name="WalkerTimer" type="Timer" parent="."]
+wait_time = 6.0
+autostart = true
+
+[connection signal="timeout" from="WalkerTimer" to="." method="_on_WalkerTimer_timeout"]

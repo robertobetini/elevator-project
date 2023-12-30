@@ -1,0 +1,24 @@
+extends KinematicBody2D
+
+# states
+const CLOSED = 0
+const OPEN = 1
+
+var state = CLOSED
+
+signal elevator_button_pressed
+	
+func _on_Area2D_body_entered(_body):
+	state = CLOSED
+	emit_signal("elevator_button_pressed")
+		
+func _on_Floor_elevator_arrived_on_floor():
+	state = OPEN
+	visible = false
+
+func _on_Floor_elevator_called(_id):
+	state = CLOSED
+
+func _on_Floor_elevator_left_floor():
+	state = CLOSED
+	visible = true
