@@ -14,8 +14,8 @@ const floor_colors = [
 
 func _ready():
 	randomize()
-	var building = get_node("Building")
 	var i = 0
+	var building : Node2D = get_node("Building")
 	for node in building.get_children():
 		var color_with_less_alpha = Color8(floor_colors[i].r, floor_colors[i].g, floor_colors[i].b, 200)
 		node.set_modulate(floor_colors[i])
@@ -23,9 +23,9 @@ func _ready():
 		i += 1
 
 func _on_WalkerTimer_timeout():
-	var walker = walker_scene.instance()
-	var chosen_floor_index = randi() % len(floors)
-	var chosen_floor = floors[chosen_floor_index]
+	var walker : Walker = walker_scene.instance()
+	var chosen_floor_index : int = randi() % len(floors)
+	var chosen_floor : Node2D = floors[chosen_floor_index]
 	
 	walker.connect("entered_waiting_queue", chosen_floor, "_on_Walker_entered_waiting_queue", [walker])
 	walker.position = chosen_floor.get_node("WalkerSpawn").global_position

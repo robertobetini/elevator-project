@@ -36,6 +36,7 @@ modulate = Color( 1, 1, 1, 0.85098 )
 position = Vector2( 80, 988 )
 max_speed = 150.0
 max_force = 3.0
+CAPACITY = 1
 
 [node name="WalkerTimer" type="Timer" parent="."]
 wait_time = 6.0

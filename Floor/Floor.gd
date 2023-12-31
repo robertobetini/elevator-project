@@ -1,6 +1,6 @@
 extends Node2D
 
-export var id = 0
+export var id : int = 0
 
 export var waiting_queues = {
 	0: [],
@@ -10,10 +10,10 @@ export var waiting_queues = {
 	4: []
 }
 
-var elevator_is_on_floor = false
-var locked = false
+var elevator_is_on_floor : bool = false
+var locked : bool = false
 
-const PROCESSING_DELAY_IN_SECONDS = 0.5
+const PROCESSING_DELAY_IN_SECONDS : float = 0.5
 
 # emitted signals
 signal elevator_called(id)

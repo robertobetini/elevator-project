@@ -11,23 +11,22 @@ signal elevator_left(floor_id)
 signal walker_failed_entering_elevator(walker)
 signal walker_exited_elevator(walker)
 
-export var CAPACITY = 1
+export var CAPACITY : int = 1
 
-var state = STOPPED
+var state : int = STOPPED
 
-var current_floor = 0
-var next_floor = 0
+var current_floor : int = 0
+var next_floor : int = 0
 
-var locked = false
-var dispatching = false
+var locked : bool = false
 
-const BUSY_TIME_IN_SECONDS = 2
-const COLOR_ALPHA_INSIDE_ELEVATOR = 0.5
+const BUSY_TIME_IN_SECONDS : float = 2.0
+const COLOR_ALPHA_INSIDE_ELEVATOR : float = 0.5
 
 const queue = []
 const elevator_slots = []
 var elevator_waypoints = []
-var last_waypoint = position
+var last_waypoint : Vector2 = position
 
 func _ready():
 	var building_node : Node2D = get_parent().get_node("Building")
@@ -41,11 +40,11 @@ func _ready():
 		self.connect("walker_failed_entering_elevator", child, "_on_Walker_failed_entering_elevator")
 		
 		# setup waypoints
-		var waypoint = child.get_node("ElevatorWaypoint").global_position
+		var waypoint : Vector2 = child.get_node("ElevatorWaypoint").global_position
 		elevator_waypoints.append(waypoint)
 		
 	# setup slots
-	var slots = get_node("Slots")
+	var slots : Node2D = get_node("Slots")
 	if  CAPACITY > len(slots.get_children()):
 		print("[WARNING] Elevator capacity higher than the number of available slots.")
 	
@@ -74,7 +73,6 @@ func _process(delta):
 	
 	if state == BUSY:
 		locked = true
-		dispatching = true
 		dispatch_slots()
 		var timer = get_tree().create_timer(BUSY_TIME_IN_SECONDS)
 		timer.connect("timeout", self, "_on_closing_elevator")
@@ -120,10 +118,7 @@ func dispatch_slots():
 		if current_floor == slot.occupier.desired_floor:
 			slot.occupier.global_position.x += 200
 			emit_signal("walker_exited_elevator", slot.occupier)
-#			slot.occupier.queue_free()
 			slot.occupier = null
-			
-	dispatching = false
 
 # signal handling
 func _on_Elevator_called(id: int):

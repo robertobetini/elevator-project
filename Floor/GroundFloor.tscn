@@ -229,7 +229,7 @@ position = Vector2( 2188, 112 )
 position = Vector2( 100, 112 )
 
 [node name="WalkerExit" type="Position2D" parent="."]
-position = Vector2( 356, 273 )
+position = Vector2( 256, 161 )
 
 [node name="ElevatorGate" parent="." instance=ExtResource( 2 )]
 position = Vector2( 176, 112 )

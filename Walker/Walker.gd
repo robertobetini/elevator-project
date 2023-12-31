@@ -1,31 +1,27 @@
 class_name Walker extends AutonomousAgent
 
 # states
-const WALKING_TO_ELEVATOR = 0
-const WAITING_FOR_ELEVATOR = 1
-const INSIDE_ELEVATOR = 2
-const LEAVING_BUILDING = 3
+const WALKING_TO_ELEVATOR : int = 0
+const WAITING_FOR_ELEVATOR : int = 1
+const INSIDE_ELEVATOR : int = 2
+const LEAVING_BUILDING : int = 3
 
 # signals
 signal entered_waiting_queue
 
-const SPEED = 20000
-const LEFT = -1
-const RIGHT = 1
+const SPEED : int = 20000
+const LEFT : int = -1
+const RIGHT : int = 1
 
-var alpha = 0.9
+var alpha : float = 0.9
 
-var state = WALKING_TO_ELEVATOR
-var spawn_floor
-var desired_floor
-
-func _ready():
-	pass
+var state : int = WALKING_TO_ELEVATOR
+var spawn_floor : int
+var desired_floor : int
 
 func _process(delta):
 	var velocity = Vector2(LEFT, 100)
-	
-#	print(state)
+
 	if is_on_wall() and state != WAITING_FOR_ELEVATOR and state != LEAVING_BUILDING:
 		emit_signal("entered_waiting_queue")
 		state = WAITING_FOR_ELEVATOR
@@ -65,7 +61,8 @@ func set_color_alpha(value):
 	var color = get_modulate()
 	color.a = value
 	set_color(color)
-	
+
+# signal handling
 func _on_Walker_exited_elevator(walker: Walker):
 	walker.state = LEAVING_BUILDING
 	walker.z_index = -1

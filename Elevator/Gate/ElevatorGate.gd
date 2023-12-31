@@ -1,10 +1,10 @@
 extends KinematicBody2D
 
 # states
-const CLOSED = 0
-const OPEN = 1
+const CLOSED : int = 0
+const OPEN : int = 1
 
-var state = CLOSED
+var state : int = CLOSED
 
 signal elevator_button_pressed
 	

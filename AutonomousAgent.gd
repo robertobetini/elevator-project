@@ -21,7 +21,7 @@ func arrive(origin: Vector2, target: Vector2) -> Vector2:
 	var distance_to_origin_squared = position.distance_squared_to(origin)
 	
 	if distance_to_target_squared < arrival_radius_squared or distance_to_origin_squared < arrival_radius_squared:
-		var steering = seek(target) * (distance_to_origin_squared + 0.0001 / arrival_radius_squared)
+		var steering : Vector2 = seek(target) * (distance_to_origin_squared + 0.0001 / arrival_radius_squared)
 		return steering.limit_length(max_force)
 
 	return seek(target)
